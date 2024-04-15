@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|c:\\users\\hakan\\onedrive\\belgeler\\github repositories\\signalr-tutorial-notes\\signalrtutorial\\signalrserverexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|solutionrelative:signalrserverexample\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|c:\\users\\hakan\\onedrive\\belgeler\\github repositories\\signalr-tutorial-notes\\signalrtutorial\\signalrserverexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|solutionrelative:signalrserverexample\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|c:\\users\\hakan\\onedrive\\belgeler\\github repositories\\signalr-tutorial-notes\\signalrtutorial\\signalrserverexample\\hubs\\myhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|solutionrelative:signalrserverexample\\hubs\\myhub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|c:\\users\\hakan\\onedrive\\belgeler\\github repositories\\signalr-tutorial-notes\\signalrtutorial\\signalrserverexample\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|solutionrelative:signalrserverexample\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|c:\\users\\hakan\\onedrive\\belgeler\\github repositories\\signalr-tutorial-notes\\signalrtutorial\\signalrserverexample\\interfaces\\imessageclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A3266E-5927-42B1-96AA-87D2A6F9F29F}|SignalRServerExample\\SignalRServerExample.csproj|solutionrelative:signalrserverexample\\interfaces\\imessageclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,58 +18,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 198,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "SignalRServerExample\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Properties\\launchSettings.json",
-              "RelativeToolTip": "SignalRServerExample\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-15T17:55:08.352Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "SignalRServerExample\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "SignalRServerExample\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-15T17:50:32.563Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Program.cs",
-              "RelativeDocumentMoniker": "SignalRServerExample\\Program.cs",
-              "ToolTip": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Program.cs",
-              "RelativeToolTip": "SignalRServerExample\\Program.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAABcAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-15T13:18:54.371Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "MyHub.cs",
               "DocumentMoniker": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Hubs\\MyHub.cs",
               "RelativeDocumentMoniker": "SignalRServerExample\\Hubs\\MyHub.cs",
               "ToolTip": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Hubs\\MyHub.cs",
               "RelativeToolTip": "SignalRServerExample\\Hubs\\MyHub.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAACZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-14T19:16:45.876Z",
+              "WhenOpened": "2024-04-15T18:09:50.551Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "IMessageClient.cs",
+              "DocumentMoniker": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Interfaces\\IMessageClient.cs",
+              "RelativeDocumentMoniker": "SignalRServerExample\\Interfaces\\IMessageClient.cs",
+              "ToolTip": "C:\\Users\\hakan\\OneDrive\\Belgeler\\Github Repositories\\SignalR-Tutorial-Notes\\SignalRTutorial\\SignalRServerExample\\Interfaces\\IMessageClient.cs",
+              "RelativeToolTip": "SignalRServerExample\\Interfaces\\IMessageClient.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-15T18:09:24.73Z",
               "EditorCaption": ""
             }
           ]

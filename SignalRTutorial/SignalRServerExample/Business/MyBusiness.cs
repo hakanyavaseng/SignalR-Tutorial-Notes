@@ -17,8 +17,5 @@ namespace SignalRServerExample.Business
         {
             await hubContext.Clients.All.SendAsync("receiveMessage", message);
         }
-        
-
-
     }
 }
