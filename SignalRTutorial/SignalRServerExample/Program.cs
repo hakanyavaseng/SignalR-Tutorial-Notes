@@ -19,7 +19,7 @@ builder.Services.AddSignalR();
 var app = builder.Build();
 
 app.UseCors();
-app.MapHub<MyHub>("/myhub"); 
+app.MapHub<MyHub>("/myhub"); // Suggested usage
 /*
 app.UseEndpoints(endpoints =>
 {

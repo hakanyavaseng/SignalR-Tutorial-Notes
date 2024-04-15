@@ -10,7 +10,7 @@
       // Create a new SignalR connection
       const connection = new signalR.HubConnectionBuilder()
         .withUrl("https://localhost:5000/myhub")
-        .withAutomaticReconnect([1000, 2000, 3000])
+        .withAutomaticReconnect([1000, 2000, 3000]) // As default 0, 2000, 10000, 30000
         .build();
 
       // Function to start the connection
@@ -26,9 +26,13 @@
       // Start the connection
       start();
 
+      // Function to apply fade in/out animation to the state element
+      function animation() {
+        $("#state").fadeIn(2000).fadeOut(2000);
+      }
+
       // Reference to the state element
       const state = $("#state");
-
       // Event handler for connection onreconnecting
       connection.onreconnecting(() => {
         console.log("Connection lost. Trying to reconnect to the server.");
@@ -36,9 +40,8 @@
         // Update state element and apply fade in/out animation
         state.css("background-color", "yellow")
           .css("color", "black")
-          .text("Connection lost. Trying to reconnect to the server.")
-          .fadeIn(2000)
-          .fadeOut(2000);
+          .text("Connection lost. Trying to reconnect to the server.");
+          animation();
       });
 
       // Event handler for connection onreconnected
@@ -48,9 +51,8 @@
         // Update state element and apply fade in/out animation
         state.css("background-color", "green")
           .css("color", "white")
-          .text("Connection reestablished. Connection ID: " + connectionId)
-          .fadeIn(2000)
-          .fadeOut(2000);
+          .text("Connection reestablished. Connection ID: " + connectionId);
+          animation();
       });
 
       // Event handler for connection onclose
@@ -60,9 +62,36 @@
         // Update state element and apply fade in/out animation
         state.css("background-color", "red")
           .css("color", "white")
-          .text("Connection closed.")
-          .fadeIn(2000)
-          .fadeOut(2000);
+          .text("Connection closed.");
+          animation();
+
+      });
+
+      // Event handlers for userJoined and userLeft which are defined in the server
+      connection.on("userJoined", connectionId => {
+        state.css("background-color", "green")
+          .css("color", "white")
+          .text(`${connectionId} joined.`);
+          animation();
+       
+      });
+
+      connection.on("userLeft", connectionId => {
+        state.css("background-color", "red")
+          .css("color", "white")
+          .text(`${connectionId} left.`);
+          animation();
+        
+      });
+
+      // 
+      connection.on("clients", clientsData => {
+        let text = "";
+        $("#clients").empty();
+        clientsData.forEach(client => {
+          text += `<li>${client}</li>`;
+        });   
+        $("#clients").html(text);
       });
 
       // Event handler for button click to send message
@@ -76,6 +105,7 @@
       connection.on("receiveMessage", (message) => {
         $("#messages").append(`<p>${message}</p>`);
       });
+    
     });
   </script>
 </head>
@@ -83,9 +113,19 @@
 
 <div id="state" style="display: none;"></div>
 
+
 <input type="text" id="txtMessage" />
 <button id="btnSend">Gönder</button>
-<div id="messages"></div>
+<div id="messages">
+
+
+</div>
+
+<div>
+  <ul id="clients">
+
+  </ul>
+</div>
 
 </body>
 </html>
