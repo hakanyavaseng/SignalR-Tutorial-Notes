@@ -1,3 +1,4 @@
+using SignalRServerExample.Business;
 using SignalRServerExample.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,15 +16,20 @@ builder.Services
         });
     });
 builder.Services.AddSignalR();
+builder.Services.AddTransient<MyBusiness>();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
 app.UseCors();
+
+app.MapControllers();
+app.MapDefaultControllerRoute();
 app.MapHub<MyHub>("/myhub"); // Suggested usage
-/*
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<MyHub>("/myhub");
-});
-*/
+
+//app.UseEndpoints(endpoints =>
+//{
+    
+//});
+
 app.Run();
