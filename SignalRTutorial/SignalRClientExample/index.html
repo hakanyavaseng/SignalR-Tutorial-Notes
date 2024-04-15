@@ -1,35 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script src="signalr.min.js"></script>
-    <script src="jquery.min.js"></script>
+<head>
+  <!-- Include SignalR and jQuery libraries -->
+  <script src="signalr.min.js"></script>
+  <script src="jquery.min.js"></script>
 
-    <script>
-      $(document).ready(() => {
-        const connection = new signalR.HubConnectionBuilder()
-          .withUrl("https://localhost:5000/myhub")
-          .build();
+  <script>
+    $(document).ready(() => {
+      // Create a new SignalR connection
+      const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:5000/myhub")
+        .withAutomaticReconnect([1000, 2000, 3000])
+        .build();
 
-        connection.start();
+      // Function to start the connection
+      async function start() {
+        try {
+          await connection.start();
+        } catch (error) {
+          // If connection fails, attempt to reconnect after 5 seconds
+          setTimeout(start, 5000);
+        }
+      }
 
-        $("#btnSend").click(() => {
-          let message = $("#txtMessage").val();
-          connection.invoke("SendMessageAsync", message).catch(err => console.log(`Error: ${err.toString()}`));
-        });
+      // Start the connection
+      start();
 
-        connection.on("receiveMessage", message => {
-         $("div").append(`<p>${message}</p>`);
-        });
+      // Reference to the state element
+      const state = $("#state");
 
+      // Event handler for connection onreconnecting
+      connection.onreconnecting(() => {
+        console.log("Connection lost. Trying to reconnect to the server.");
+
+        // Update state element and apply fade in/out animation
+        state.css("background-color", "yellow")
+          .css("color", "black")
+          .text("Connection lost. Trying to reconnect to the server.")
+          .fadeIn(2000)
+          .fadeOut(2000);
       });
-    </script>
-  </head>
 
-  <body>
-    <input type="text" id="txtMessage" />
-    <button id="btnSend">Gönder</button>
-    <div>
+      // Event handler for connection onreconnected
+      connection.onreconnected((connectionId) => {
+        console.log("Connection reestablished. Connection ID: " + connectionId);
 
-    </div>
-  </body>
+        // Update state element and apply fade in/out animation
+        state.css("background-color", "green")
+          .css("color", "white")
+          .text("Connection reestablished. Connection ID: " + connectionId)
+          .fadeIn(2000)
+          .fadeOut(2000);
+      });
+
+      // Event handler for connection onclose
+      connection.onclose(() => {
+        console.log("Connection closed.");
+
+        // Update state element and apply fade in/out animation
+        state.css("background-color", "red")
+          .css("color", "white")
+          .text("Connection closed.")
+          .fadeIn(2000)
+          .fadeOut(2000);
+      });
+
+      // Event handler for button click to send message
+      $("#btnSend").click(() => {
+        let message = $("#txtMessage").val();
+        connection.invoke("SendMessageAsync", message)
+          .catch((err) => console.log(`Error: ${err.toString()}`));
+      });
+
+      // Event handler for receiving message from server
+      connection.on("receiveMessage", (message) => {
+        $("#messages").append(`<p>${message}</p>`);
+      });
+    });
+  </script>
+</head>
+<body>
+
+<div id="state" style="display: none;"></div>
+
+<input type="text" id="txtMessage" />
+<button id="btnSend">Gönder</button>
+<div id="messages"></div>
+
+</body>
 </html>
