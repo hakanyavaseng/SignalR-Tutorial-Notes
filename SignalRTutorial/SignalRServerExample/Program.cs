@@ -26,6 +26,7 @@ app.UseCors();
 app.MapControllers();
 app.MapDefaultControllerRoute();
 app.MapHub<MyHub>("/myhub"); // Suggested usage
+app.MapHub<MessageHub>("/messagehub");
 
 //app.UseEndpoints(endpoints =>
 //{
