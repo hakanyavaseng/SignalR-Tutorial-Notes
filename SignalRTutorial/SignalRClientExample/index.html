@@ -1,131 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Include SignalR and jQuery libraries -->
-  <script src="signalr.min.js"></script>
-  <script src="jquery.min.js"></script>
+  <head>
+    <!-- Include SignalR and jQuery libraries -->
+    <script src="signalr.min.js"></script>
+    <script src="jquery.min.js"></script>
 
-  <script>
-    $(document).ready(() => {
-      // Create a new SignalR connection
-      const connection = new signalR.HubConnectionBuilder()
-        .withUrl("https://localhost:5000/myhub")
-        .withAutomaticReconnect([1000, 2000, 3000]) // As default 0, 2000, 10000, 30000
-        .build();
+    <script>
+      $(document).ready(() => {
+        // Create a new SignalR connection
+        const connection = new signalR.HubConnectionBuilder()
+          .withUrl("https://localhost:5000/messagehub")
+          .withAutomaticReconnect([1000, 2000, 3000]) // As default 0, 2000, 10000, 30000
+          .build();
 
-      // Function to start the connection
-      async function start() {
-        try {
-          await connection.start();
-        } catch (error) {
-          // If connection fails, attempt to reconnect after 5 seconds
-          setTimeout(start, 5000);
+        // Function to start the connection
+        async function start() {
+          try {
+            await connection.start();
+          } catch (error) {
+            // If connection fails, attempt to reconnect after 5 seconds
+            setTimeout(start, 5000);
+          }
         }
-      }
 
-      // Start the connection
-      start();
+        // Start the connection
+        start();
 
-      // Function to apply fade in/out animation to the state element
-      function animation() {
-        $("#state").fadeIn(2000).fadeOut(2000);
-      }
+        // Function to apply fade in/out animation to the state element
+        function animation() {
+          $("#state").fadeIn(2000).fadeOut(2000);
+        }
 
-      // Reference to the state element
-      const state = $("#state");
-      // Event handler for connection onreconnecting
-      connection.onreconnecting(() => {
-        console.log("Connection lost. Trying to reconnect to the server.");
+        // Reference to the state element
+        const state = $("#state");
+        // Event handler for connection onreconnecting
+        connection.onreconnecting(() => {
+          console.log("Connection lost. Trying to reconnect to the server.");
 
-        // Update state element and apply fade in/out animation
-        state.css("background-color", "yellow")
-          .css("color", "black")
-          .text("Connection lost. Trying to reconnect to the server.");
+          // Update state element and apply fade in/out animation
+          state
+            .css("background-color", "yellow")
+            .css("color", "black")
+            .text("Connection lost. Trying to reconnect to the server.");
           animation();
-      });
+        });
 
-      // Event handler for connection onreconnected
-      connection.onreconnected((connectionId) => {
-        console.log("Connection reestablished. Connection ID: " + connectionId);
+        // Event handler for connection onreconnected
+        connection.onreconnected((connectionId) => {
+          console.log(
+            "Connection reestablished. Connection ID: " + connectionId
+          );
 
-        // Update state element and apply fade in/out animation
-        state.css("background-color", "green")
-          .css("color", "white")
-          .text("Connection reestablished. Connection ID: " + connectionId);
+          // Update state element and apply fade in/out animation
+          state
+            .css("background-color", "green")
+            .css("color", "white")
+            .text("Connection reestablished. Connection ID: " + connectionId);
           animation();
-      });
+        });
 
-      // Event handler for connection onclose
-      connection.onclose(() => {
-        console.log("Connection closed.");
+        // Event handler for connection onclose
+        connection.onclose(() => {
+          console.log("Connection closed.");
 
-        // Update state element and apply fade in/out animation
-        state.css("background-color", "red")
-          .css("color", "white")
-          .text("Connection closed.");
+          // Update state element and apply fade in/out animation
+          state
+            .css("background-color", "red")
+            .css("color", "white")
+            .text("Connection closed.");
           animation();
+        });
 
-      });
-
-      // Event handlers for userJoined and userLeft which are defined in the server
-      connection.on("userJoined", connectionId => {
-        state.css("background-color", "green")
-          .css("color", "white")
-          .text(`${connectionId} joined.`);
+        // Event handlers for userJoined and userLeft which are defined in the server
+        connection.on("userJoined", (connectionId) => {
+          state
+            .css("background-color", "green")
+            .css("color", "white")
+            .text(`${connectionId} joined.`);
           animation();
-       
-      });
+        });
 
-      connection.on("userLeft", connectionId => {
-        state.css("background-color", "red")
-          .css("color", "white")
-          .text(`${connectionId} left.`);
+        connection.on("userLeft", (connectionId) => {
+          state
+            .css("background-color", "red")
+            .css("color", "white")
+            .text(`${connectionId} left.`);
           animation();
+        });
+
+        //
+        connection.on("clients", (clientsData) => {
+          let text = "";
+          $("#clients").empty();
+          clientsData.forEach((client) => {
+            text += `<li>${client}</li>`;
+          });
+          $("#clients").html(text);
+        });
+
+        // Event handler for button click to send message
+        $("#btnSend").click(() => {
+          let message = $("#txtMessage").val();
+          let connectionIds = $("#connectionIds").val().split(",");
+          let groupName = $("input[name=group]:checked").val();
+          // connection
+          //   .invoke("SendMessageAsync", message, connectionIds)
+          //   .catch((err) => console.error(err.toString()));
+
+          connection
+            .invoke("SendMessageAsync", message, groupName)
+            .catch((err) => console.error(err.toString()));
+        });
+
+        // Event handler for receiving message from server
+        connection.on("receiveMessage", (message) => {
+          $("#messages").append(`<p>${message}</p>`);
+        });
+
+        let _connectionId = "";
+        connection.on("getConnectionId", (connectionId) => {
+          _connectionId = connectionId;
+          $("#connectionId").text(`Connection ID: ${connectionId}`);
+        });
+
+        $("#btnJoin").click(() => {
+
+          let groupName = $("input[name=group]:checked").val();
+          connection.invoke("addGroup", _connectionId, groupName).catch((err) => console.error(err.toString()));
         
+          });
+
       });
+    </script>
 
-      // 
-      connection.on("clients", clientsData => {
-        let text = "";
-        $("#clients").empty();
-        clientsData.forEach(client => {
-          text += `<li>${client}</li>`;
-        });   
-        $("#clients").html(text);
-      });
+  </head>
+  <body>
+    <div id="state" style="display: none"></div>
 
-      // Event handler for button click to send message
-      $("#btnSend").click(() => {
-        let message = $("#txtMessage").val();
-        connection.invoke("SendMessageAsync", message)
-          .catch((err) => console.log(`Error: ${err.toString()}`));
-      });
+    <div style="background-color: black; color: white" id="connectionId"></div>
 
-      // Event handler for receiving message from server
-      connection.on("receiveMessage", (message) => {
-        $("#messages").append(`<p>${message}</p>`);
-      });
-    
-    });
-  </script>
-</head>
-<body>
+    <input type="radio" name="group" value="A" />A
+    <input type="radio" name="group" value="B" />B
+    <input type="radio" name="group" value="C" />C
+    <button id="btnJoin">Join</button><br>
 
-<div id="state" style="display: none;"></div>
+    <input type="text" id="txtMessage" /><br>
 
+    <textarea id="connectionIds" cols="30" rows="10"></textarea>
 
-<input type="text" id="txtMessage" />
-<button id="btnSend">Gönder</button>
-<div id="messages">
+    <button id="btnSend">Gönder</button>
+    <div id="messages"></div>
 
-
-</div>
-
-<div>
-  <ul id="clients">
-
-  </ul>
-</div>
-
-</body>
+    <div>
+      <ul id="clients"></ul>
+    </div>
+  </body>
 </html>
